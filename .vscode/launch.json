@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug NestJS Application",
+        "type": "node",
+        "request": "launch",
+        "skipFiles": ["<node_internals>/**"],
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/npx",
+        "runtimeArgs": ["nestjs", "start", "--watch"],
+        "port": 9229,
+        "outFiles": [
+          "${workspaceFolder}/dist/**/*.js"
+        ],
+        "preLaunchTask": "npm: build"  // Opcional: se você usa um build antes de rodar o app
+      }
+    ]
+  }
+  
