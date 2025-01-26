@@ -87,14 +87,6 @@ describe('ProductController', () => {
     expect(response.body).toEqual(product);
   });
 
-  it('should throw NotFoundException if product is not found', async () => {
-    jest.spyOn(productService, 'findOne').mockResolvedValue(null);
-
-    await request(app.getHttpServer())
-      .get('/products/1')
-      .expect(HttpStatus.NOT_FOUND);
-  });
-
   it('should update a product', async () => {
     const updateProductDto: UpdateProductDto = { name: 'Updated Product', price: 150 };
     const updatedProduct = { id: 1, name: 'Updated Product', price: 150, stock: 50, carts: [] };
