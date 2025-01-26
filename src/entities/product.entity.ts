@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany } from 'typeorm';
-import { Cart } from './cart.entity';
 
 @Entity()
 export class Product {
@@ -15,6 +14,4 @@ export class Product {
   @Column()
   stock: number;
 
-  @ManyToMany(() => Cart, (cart) => cart.products)
-  carts: Cart[];
 }
