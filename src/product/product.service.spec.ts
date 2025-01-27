@@ -80,7 +80,6 @@ describe('ProductService', () => {
   });
 
   it('should remove a product', async () => {
-    const product = { id: 1, name: 'Product 1', price: 100, stock: 50 };
     jest.spyOn(repo, 'delete').mockResolvedValue(undefined);
 
     await service.remove(1);

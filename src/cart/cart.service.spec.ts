@@ -4,17 +4,11 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Cart } from '../entities/cart.entity';
 import { CartProduct } from '../entities/cart-product.entity';
 import { ProductService } from '../product/product.service';
-import { Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { OrderService } from '../order/order.service';
-import { find } from 'rxjs';
 
 describe('CartService', () => {
   let service: CartService;
-  let cartRepository: Repository<Cart>;
-  let cartProductRepository: Repository<CartProduct>;
-  let productService: ProductService;
-  let orderService: OrderService;
   
   const mockCartRepository = {
     findOne: jest.fn(),
@@ -63,9 +57,6 @@ describe('CartService', () => {
     }).compile();
 
     service = module.get<CartService>(CartService);
-    cartRepository = module.get(getRepositoryToken(Cart));
-    cartProductRepository = module.get(getRepositoryToken(CartProduct));
-    productService = module.get<ProductService>(ProductService);
   });
 
   it('should be defined', () => {

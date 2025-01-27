@@ -5,7 +5,6 @@ import { CartProduct } from '../entities/cart-product.entity';
 import { Order } from '../entities/order.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { HttpStatus } from '@nestjs/common';
 
 describe('AnalyticsController', () => {
   let controller: AnalyticsController;

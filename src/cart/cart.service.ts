@@ -18,8 +18,6 @@ export class CartService {
     private readonly productService: ProductService,
     private readonly orderService: OrderService,
   ) {}
-
-  // Criar carrinho
   async createCart(dto: CreateCartDto): Promise<Cart> {
     const products = await this.validateAndFetchProducts(dto.products.map(p => p.productId));
     const cartProducts = this.createCartProducts(products);
@@ -48,7 +46,6 @@ export class CartService {
     return await this.cartRepository.save(cart);
   }
 
-  // Adicionar produto ao carrinho
   async addProductToCart(cartId: number, dto: AddProductToCartDto): Promise<Cart> {
     const cart = await this.findCartById(cartId);
     const product = await this.validateAndFetchProduct(dto.productId);

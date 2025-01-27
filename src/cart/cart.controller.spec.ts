@@ -7,7 +7,6 @@ import { RemoveProductFromCartDto } from './dtos/remove-product-from-cart.dto';
 
 describe('CartController', () => {
   let cartController: CartController;
-  let cartService: CartService;
 
   const mockCartService = {
     createCart: jest.fn(),
@@ -23,7 +22,6 @@ describe('CartController', () => {
     }).compile();
 
     cartController = module.get<CartController>(CartController);
-    cartService = module.get<CartService>(CartService);
   });
 
   it('should be defined', () => {

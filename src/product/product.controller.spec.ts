@@ -4,7 +4,6 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
 import { PaginationDto } from '../helpers/dtos/pagination.dto';
-import { NotFoundException } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';

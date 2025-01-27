@@ -16,8 +16,7 @@ import { OrderModule } from '../order/order.module';
     OrderModule,
   ],
   providers: [CartService, ProductService, OrderService],
-  controllers: [CartController], // Registra o controlador do Cart
-  exports: [CartService, TypeOrmModule], // Exporte o CartService e o TypeOrmModule para outros módulos
-
+  controllers: [CartController], 
+  exports: [CartService, TypeOrmModule], 
 })
 export class CartModule {}
