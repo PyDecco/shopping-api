@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "a00636fe-4077-4fab-8ffe-b721c3dede1e",
+		"name": "shopping-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32159952"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 99.99,\n  \"stock\": 100\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/products/"
+					},
+					"response": []
+				},
+				{
+					"name": "Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/products/?page=1&limit=2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/products/3"
+					},
+					"response": []
+				},
+				{
+					"name": "product id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 99.89,\n  \"stock\": 99\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/products/3"
+					},
+					"response": []
+				},
+				{
+					"name": "product id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/products/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/order/?page=1&limit=10",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/order/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Criar carrinho com pelo menos um produto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productIds\": [1, 2, 3]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/cart/"
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar produto ao carrinho",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/cart/6/products/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Remover produto do carrinho",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/cart/5/products/remove"
+					},
+					"response": []
+				},
+				{
+					"name": "Realizar pagamento do carrinho",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "localhost:3000/cart/8/checkout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Amostragem de produtos requisitados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/analytics/most-requested-products"
+					},
+					"response": []
+				},
+				{
+					"name": "Volume de vendas por dia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/analytics/daily-sales-volume"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
