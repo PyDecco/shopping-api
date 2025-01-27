@@ -12,6 +12,7 @@ import { CartService } from './cart/cart.service';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { CartProduct } from './entities/cart-product.entity';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CartProduct } from './entities/cart-product.entity';
     ProductModule,
     CartModule,
     OrderModule,
+    AnalyticsModule,
   ],
   controllers: [OrderController, CartController],
   providers: [OrderService, CartService],
