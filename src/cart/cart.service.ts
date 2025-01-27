@@ -6,6 +6,7 @@ import { CreateCartDto } from './dtos/create-cart.dto';
 import { AddProductToCartDto } from './dtos/add-product-to-cart.dto';
 import { ProductService } from '../product/product.service';
 import { CartProduct } from '../entities/cart-product.entity';
+import { OrderService } from '../order/order.service';
 
 @Injectable()
 export class CartService {
@@ -15,6 +16,7 @@ export class CartService {
     @InjectRepository(CartProduct)
     private readonly cartProductRepository: Repository<CartProduct>,
     private readonly productService: ProductService,
+    private readonly orderService: OrderService,
   ) {}
 
   // Criar carrinho
@@ -102,7 +104,6 @@ export class CartService {
     return this.findCartById(cartId);
   }
 
-  // Remover produto do carrinho
   async removeProductFromCart(cartId: number, productId: number): Promise<Cart> {
     const cart = await this.findCartById(cartId);
     const cartProduct = this.findCartProduct(cart, productId);
@@ -130,14 +131,30 @@ export class CartService {
     await this.cartProductRepository.remove(cartProduct);
   }
 
-  // Realizar pagamento do carrinho
   async checkoutCart(cartId: number): Promise<Cart> {
     const cart = await this.findCartById(cartId);
     this.validateCartForCheckout(cart);
 
+    const total = this.calculateCartTotal(cart);
+
     cart.paymentStatus = 'PAID';
     cart.paymentDate = new Date();
+
+    const order = await this.orderService.create({ 
+      total, 
+      cart, 
+      createdAt: new Date(),
+    });
+    cart.order = order;
+
     return await this.cartRepository.save(cart);
+  }
+
+  private calculateCartTotal(cart: Cart): number {
+    return cart.cartProducts.reduce((acc, item) => {
+      const price = parseFloat(item.product.price.toString());
+      return acc + price * item.quantity;
+    }, 0);
   }
 
   private validateCartForCheckout(cart: Cart): void {

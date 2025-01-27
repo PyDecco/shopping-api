@@ -6,13 +6,16 @@ import { CartProduct } from '../entities/cart-product.entity';
 import { ProductService } from '../product/product.service';
 import { Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
+import { OrderService } from '../order/order.service';
+import { find } from 'rxjs';
 
 describe('CartService', () => {
   let service: CartService;
   let cartRepository: Repository<Cart>;
   let cartProductRepository: Repository<CartProduct>;
   let productService: ProductService;
-
+  let orderService: OrderService;
+  
   const mockCartRepository = {
     findOne: jest.fn(),
     create: jest.fn(),
@@ -30,6 +33,12 @@ describe('CartService', () => {
     findMany: jest.fn(),
   };
 
+  const mockOrderService = {
+    create: jest.fn(),
+    findAll: jest.fn(),
+    findOne: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -45,6 +54,10 @@ describe('CartService', () => {
         {
           provide: ProductService,
           useValue: mockProductService,
+        },
+        {
+          provide: OrderService,
+          useValue: mockOrderService,
         },
       ],
     }).compile();
@@ -158,15 +171,38 @@ describe('CartService', () => {
   });
 
   describe('checkoutCart', () => {
-    it('should checkout a cart', async () => {
-      const mockCart = { id: 1, paymentStatus: 'OPEN' };
+    it('should checkout a cart successfully', async () => {
+      const mockCart = {
+        id: 1,
+        paymentStatus: 'OPEN',
+        cartProducts: [
+          { quantity: 2, product: { price: '50.00' } },
+          { quantity: 1, product: { price: '30.00' } },
+        ],
+      };
       mockCartRepository.findOne.mockResolvedValue(mockCart);
-      mockCartRepository.save.mockResolvedValue({ id: 1, paymentStatus: 'PAID' });
-
+      mockCartRepository.save.mockResolvedValue({
+        id: 1,
+        paymentStatus: 'PAID',
+        paymentDate: new Date(),
+      });
+      mockOrderService.create.mockResolvedValue({ id: 1, total: 130 });
+  
       const result = await service.checkoutCart(1);
-
-      expect(result).toEqual({ id: 1, paymentStatus: 'PAID' });
-      expect(mockCartRepository.save).toHaveBeenCalled();
+  
+      expect(result.paymentStatus).toBe('PAID');
+      expect(result.paymentDate).toBeDefined();
+      expect(mockOrderService.create).toHaveBeenCalledWith({
+        total: 130,
+        cart: mockCart,
+        createdAt: expect.any(Date),
+      });
+      expect(mockCartRepository.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          paymentStatus: 'PAID',
+          paymentDate: expect.any(Date),
+        }),
+      );
     });
 
     it('should throw BadRequestException if cart is already paid', async () => {
