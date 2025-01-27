@@ -9,7 +9,6 @@ describe('OrderController (e2e)', () => {
   let orderService: Partial<OrderService>;
 
   beforeAll(async () => {
-    // Mock do serviço de pedidos
     orderService = {
       findAll: jest.fn(),
       findOne: jest.fn(),
@@ -20,14 +19,13 @@ describe('OrderController (e2e)', () => {
       providers: [
         {
           provide: OrderService,
-          useValue: orderService, // Substitui o serviço real pelo mock
+          useValue: orderService, 
         },
       ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
 
-    // Adiciona os mesmos pipes globais utilizados na aplicação real
     app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
 
     await app.init();
@@ -38,7 +36,7 @@ describe('OrderController (e2e)', () => {
   });
 
   describe('/order (GET)', () => {
-    it('deve retornar uma lista de pedidos com paginação', async () => {
+    it('It should return a list of orders with pagination.', async () => {
       const paginationDto = { page: 1, limit: 10 };
       const mockOrders = {
         data: [
@@ -58,7 +56,6 @@ describe('OrderController (e2e)', () => {
         total: 1,
       };
 
-      // Mocka o método `findAll` do serviço
       (orderService.findAll as jest.Mock).mockResolvedValue(mockOrders);
 
       const response = await request(app.getHttpServer())
@@ -69,7 +66,7 @@ describe('OrderController (e2e)', () => {
       expect(response.body).toEqual(mockOrders);
     });
 
-    it('deve retornar erro 400 se os parâmetros de consulta forem inválidos', async () => {
+    it('It should return a 400 error if the query parameters are invalid.', async () => {
       await request(app.getHttpServer())
         .get('/order')
         .query({ page: 'invalid', limit: 'invalid' })
@@ -78,7 +75,7 @@ describe('OrderController (e2e)', () => {
   });
 
   describe('/order/:id (GET)', () => {
-    it('deve retornar um pedido específico pelo ID', async () => {
+    it('It should return a specific order by ID.', async () => {
       const mockOrder = {
         id: 1,
         total: 599.97,
@@ -92,7 +89,6 @@ describe('OrderController (e2e)', () => {
         },
       };
 
-      // Mocka o método `findOne` do serviço
       (orderService.findOne as jest.Mock).mockResolvedValue(mockOrder);
 
       const response = await request(app.getHttpServer())
@@ -102,7 +98,7 @@ describe('OrderController (e2e)', () => {
       expect(response.body).toEqual(mockOrder);
     });
 
-    it('deve retornar erro 400 para um ID inválido', async () => {
+    it('It should return a 400 error for an invalid ID.', async () => {
       await request(app.getHttpServer())
         .get('/order/invalid')
         .expect(400);
