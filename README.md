@@ -68,3 +68,10 @@ Dentro do repositório, você encontrará o arquivo `shopping-api.postman_collec
 3. Selecione a opção File e escolha o arquivo `shopping-api.postman_collection.json` que está localizado na raiz do projeto.
 4. Após importar, você poderá testar os endpoints da API.
 
+6. Rodando os testes unitarios e integração
+Foram feitos 51 testes entre e2e e unitario para validar o fluxo. 
+```bash
+npm run test
+```
+
+
