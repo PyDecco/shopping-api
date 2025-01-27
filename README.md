@@ -7,8 +7,8 @@ O objetivo deste desafio técnico é desenvolver uma API REST capaz de processar
 Como usuário, desejo visualizar um produto, adicioná-lo ao carrinho de compras e finalizar a compra. Além disso, gostaria de acessar dados estatísticos sobre as compras realizadas, como os produtos mais requisitados e volume de vendas diário.
 
 ## Estrutura de Tabelas
+![alt text](image.png)
 O banco de dados da aplicação é composto pelas seguintes entidades:
-
 1. Product
 Representa um produto no sistema. A entidade Product possui informações sobre o produto, como nome, preço e estoque disponível.
 
