@@ -22,12 +22,12 @@ Representa um produto específico dentro de um carrinho. A entidade CartProduct 
 Representa um pedido finalizado. A entidade Order contém informações como o total do pedido, a data de criação e o carrinho associado a esse pedido.
 
 ## Tecnologias Utilizadas
-*NestJS:* Framework para construir a API REST.
-*TypeORM:* ORM para interação com o banco de dados PostgreSQL.
-*PostgreSQL:* Banco de dados utilizado para armazenar os dados.
-*Class-Validator e Class-Transformer:* Para validação e transformação de dados de entrada.
-*Jest:* Framework de testes para garantir a qualidade da API.
-*ESLint e Prettier:* Ferramentas para garantir a consistência do código e formatação
+- *NestJS:* Framework para construir a API REST.
+- *TypeORM:* ORM para interação com o banco de dados PostgreSQL.
+- *PostgreSQL:* Banco de dados utilizado para armazenar os dados.
+- *Class-Validator e Class-Transformer:* Para validação e transformação de dados de entrada.
+- *Jest:* Framework de testes para garantir a qualidade da API.
+- *ESLint e Prettier:* Ferramentas para garantir a consistência do código e formatação
 
 
 ## Como Rodar o Projeto
